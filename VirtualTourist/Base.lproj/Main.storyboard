@@ -18,6 +18,7 @@
                     </navigationBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="v6Z-fK-3rz"/>
+                        <segue destination="BSr-Fd-k7h" kind="show" id="mBz-zm-pgb"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1kY-Le-LI0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -27,7 +28,7 @@
         <!--Locations Map View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LocationsMapViewController" customModule="VirtualTourist" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LocationsMapViewController" id="BYZ-38-t0r" customClass="LocationsMapViewController" customModule="VirtualTourist" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -53,6 +54,43 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1109" y="297"/>
+        </scene>
+        <!--Photo Album View Controller-->
+        <scene sceneID="Ou3-d9-IMG">
+            <objects>
+                <viewController storyboardIdentifier="PhotoAlbumViewController" id="BSr-Fd-k7h" customClass="PhotoAlbumViewController" customModule="VirtualTourist" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Qtk-2r-h8A">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Images" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BAY-3q-jyr">
+                                <rect key="frame" x="166" y="264" width="82" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="PVm-nG-iC9">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="NdP-Cs-how"/>
+                                </constraints>
+                            </mapView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="eZr-6B-LIE"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="PVm-nG-iC9" firstAttribute="leading" secondItem="eZr-6B-LIE" secondAttribute="leading" id="0Bl-gM-9yg"/>
+                            <constraint firstItem="BAY-3q-jyr" firstAttribute="centerX" secondItem="Qtk-2r-h8A" secondAttribute="centerX" id="DKM-Tp-9Xj"/>
+                            <constraint firstItem="PVm-nG-iC9" firstAttribute="trailing" secondItem="eZr-6B-LIE" secondAttribute="trailing" id="Ejp-5a-PBw"/>
+                            <constraint firstItem="PVm-nG-iC9" firstAttribute="top" secondItem="eZr-6B-LIE" secondAttribute="top" id="dV9-XZ-0ff"/>
+                            <constraint firstItem="BAY-3q-jyr" firstAttribute="top" secondItem="PVm-nG-iC9" secondAttribute="bottom" constant="64" id="taJ-UE-tba"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="7TL-mE-CRF"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9XC-0V-ETX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-133.33333333333334" y="296.65178571428572"/>
         </scene>
     </scenes>
     <resources>
