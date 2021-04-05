@@ -53,17 +53,11 @@ class LocationsMapViewController: UIViewController, MKMapViewDelegate, NSFetched
         }
     }
     
-    private func mapPinToAnnotation(_ pin: Pin) -> MKAnnotation {
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)
-        return annotation
-    }
-    
     private func displayPins() {
         mapView.removeAnnotations(mapView.annotations)
         let pins = fetchedResultsController.fetchedObjects!
         let annotations: [MKAnnotation] = pins.map {
-            return mapPinToAnnotation($0)
+            return $0.asAnnotation()
         }
         mapView.addAnnotations(annotations)
     }
@@ -97,14 +91,27 @@ class LocationsMapViewController: UIViewController, MKMapViewDelegate, NSFetched
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        let nextVC = storyboard?.instantiateViewController(identifier: "PhotoAlbumViewController") as! PhotoAlbumViewController
-        navigationController?.pushViewController(nextVC, animated: true)
+        let lat = view.annotation?.coordinate.latitude
+        let lon = view.annotation?.coordinate.longitude
+        
+        let fetchRequest = NSFetchRequest<Pin>(entityName: "Pin")
+        fetchRequest.predicate = NSPredicate(format: "latitude == \(lat!) AND longitude == \(lon!)")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "latitude", ascending: true), NSSortDescriptor(key: "longitude", ascending: true)]
+        
+        do {
+            let pin = try dataController.viewContext.fetch(fetchRequest)
+            let nextVC = storyboard?.instantiateViewController(identifier: "PhotoAlbumViewController") as! PhotoAlbumViewController
+            nextVC.pin = pin.first
+            navigationController?.pushViewController(nextVC, animated: true)
+        } catch {
+            fatalError("The Pin could not be found: \(error.localizedDescription)")
+        }
     }
     
     
     // MARK: - NSFetchedResultsControllerDelegate
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        let annotation = mapPinToAnnotation(anObject as! Pin)
+        let annotation = (anObject as! Pin).asAnnotation()
         switch type {
             case .insert:
                 mapView.addAnnotation(annotation)
